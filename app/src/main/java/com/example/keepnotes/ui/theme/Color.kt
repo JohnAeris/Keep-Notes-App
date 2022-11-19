@@ -2,7 +2,10 @@ package com.example.keepnotes.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Black = Color(0xFF000000)
+val White = Color(0xFFFFFFFF)
+val Lapis_Lazuli = Color(0xFF336699)
+val Dar_Sky_Blue = Color(0xFF86bbd8)
+val Charcoal = Color(0xFF2f4858)
+val Granny_Smith_Apple = Color(0xFF9ee493)
+val Nyanza = Color(0xFFdaf7dc)
