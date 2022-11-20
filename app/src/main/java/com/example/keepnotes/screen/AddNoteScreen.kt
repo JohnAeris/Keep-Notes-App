@@ -1,6 +1,8 @@
 package com.example.keepnotes.screen
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -8,18 +10,23 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
 import com.example.keepnotes.components.DiscardButton
 import com.example.keepnotes.components.SaveButton
 import com.example.keepnotes.components.InputText
+import com.example.keepnotes.data.NoteDummyDataSource
+import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.navigation.Screen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun AddNoteScreen(navController: NavController) {
+fun AddNoteScreen(
+    navController: NavController,
+    addNote: (NoteData) -> Unit
+) {
 
     var title by remember {
         mutableStateOf("")
@@ -33,7 +40,7 @@ fun AddNoteScreen(navController: NavController) {
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background) {
+        color = MaterialTheme.colors.primaryVariant) {
 
         Column(
             verticalArrangement = Arrangement.Center,
@@ -67,10 +74,11 @@ fun AddNoteScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     InputText(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().fillMaxHeight(0.5f),
                         text = description,
                         label = "Add note",
                         maxLine = 1000,
+                        imeAction = ImeAction.None,
                         onTextChange = {
                                 description = it
                         }
@@ -80,10 +88,15 @@ fun AddNoteScreen(navController: NavController) {
             
             Row() {
                 DiscardButton(text = "Discard", onClick = {
-                    navController.navigate(route = Screen.MainScreen.name)
-                    title = ""
-                    description = ""
-                    Toast.makeText(context, "Discarded", Toast.LENGTH_SHORT).show()
+
+                    if (title.isNotEmpty() && description.isNotEmpty()) {
+                        navController.navigate(route = Screen.MainScreen.name)
+                        title = ""
+                        description = ""
+                        Toast.makeText(context, "Note Discarded", Toast.LENGTH_SHORT).show()
+                    } else {
+                        //Nothing
+                    }
                 })
                 
                 Spacer(modifier = Modifier.width(10.dp))
@@ -91,9 +104,11 @@ fun AddNoteScreen(navController: NavController) {
                 SaveButton(text = "Save", onClick = {
 
                     if (title.isNotEmpty() && description.isNotEmpty()) {
+                        addNote(NoteData(title = title, description = description))
                         title = ""
                         description = ""
-                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+                        navController.navigate(route = Screen.MainScreen.name)
+                        Toast.makeText(context, "Note Saved", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(context, "Fill the Title and Description", Toast.LENGTH_SHORT).show()
                     }
