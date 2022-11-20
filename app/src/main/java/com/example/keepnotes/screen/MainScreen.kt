@@ -1,6 +1,7 @@
 package com.example.keepnotes.screen
 
 import android.os.Build
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -24,10 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.keepnotes.data.NoteDummyDataSource
 import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.navigation.Screen
+import com.example.keepnotes.viewModel.NoteViewModel
 import java.time.format.DateTimeFormatter
 
 
@@ -39,6 +42,7 @@ fun MainScreen(
     removeNote: (NoteData) -> Unit
 ) {
     val context = LocalContext.current
+
     Scaffold(
 
         topBar = {
