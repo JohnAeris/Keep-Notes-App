@@ -1,10 +1,14 @@
 package com.example.keepnotes.screen
 
+import android.os.Build
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -13,11 +17,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.keepnotes.data.NoteDummyDataSource
+import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.navigation.Screen
+import java.text.SimpleDateFormat
+import java.util.*
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(navController: NavController) {
     val context = LocalContext.current
@@ -56,13 +65,22 @@ fun MainScreen(navController: NavController) {
 
         floatingActionButtonPosition = FabPosition.Center)
     {
-        MainContent()
+        MainContent(notes = NoteDummyDataSource().loadNotes(), addNote = {}, removeNote = {})
     }
 }
 
 @Composable
-fun MainContent() {
-    Column() {
-        Text(text = "Hello World", color = MaterialTheme.colors.primary)
+fun MainContent(notes: List<NoteData>, addNote: (NoteData) -> Unit, removeNote: (NoteData) -> Unit) {
+
+    LazyColumn() {
+        item() {
+            Text(text = "HELLO", color = Color.Black)
+        }
+
+        items(notes) { note ->
+            Text(text = note.title, color = Color.Black)
+        }
+
     }
+
 }
