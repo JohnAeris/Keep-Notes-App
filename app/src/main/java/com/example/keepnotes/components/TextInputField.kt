@@ -25,6 +25,7 @@ fun InputText(
     label: String,
     maxLine: Int = 1,
     onTextChange: (String) -> Unit,
+    imeAction: ImeAction = ImeAction.Next,
     onImeAction: () -> Unit = {})
 {
     val keyBoardController = LocalSoftwareKeyboardController.current
@@ -41,7 +42,7 @@ fun InputText(
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colors.primary)},
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done),
+            imeAction = imeAction),
         keyboardActions = KeyboardActions(
             onDone = {
                 onImeAction()
