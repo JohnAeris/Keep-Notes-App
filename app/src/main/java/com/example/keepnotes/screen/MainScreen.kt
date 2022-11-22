@@ -27,9 +27,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.room.TypeConverter
 import com.example.keepnotes.data.NoteDummyDataSource
 import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.navigation.Screen
+import com.example.keepnotes.utility.dateFormat
 import com.example.keepnotes.viewModel.NoteViewModel
 import java.time.format.DateTimeFormatter
 
@@ -148,11 +150,11 @@ fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit) {
             
             Row() {
                 Spacer(modifier = Modifier.weight(1f))
-                
+
                 Text(
-                    text = note.date.format(DateTimeFormatter.ofPattern("hh:mm a | d MMM, y")),
+                    text = dateFormat(note.date.time),
                     style = MaterialTheme.typography.caption,
-                    color = MaterialTheme.colors.primary)   
+                    color = MaterialTheme.colors.primary)
             }
 
         }
