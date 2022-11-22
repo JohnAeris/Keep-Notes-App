@@ -93,9 +93,8 @@ fun AddNoteScreen(
                         navController.navigate(route = Screen.MainScreen.name)
                         title = ""
                         description = ""
-                        Toast.makeText(context, "Note Discarded", Toast.LENGTH_SHORT).show()
                     } else {
-                        //Nothing
+                        navController.navigate(route = Screen.MainScreen.name)
                     }
                 })
                 
@@ -108,7 +107,7 @@ fun AddNoteScreen(
                         title = ""
                         description = ""
                         navController.navigate(route = Screen.MainScreen.name)
-                        Toast.makeText(context, "Note Saved", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(context, "Fill the Title and Description", Toast.LENGTH_SHORT).show()
                     }
