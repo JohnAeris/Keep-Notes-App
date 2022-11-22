@@ -26,9 +26,6 @@ fun ScreenNavigation(noteViewModel: NoteViewModel = viewModel()) {
             MainScreen(navController = navController, noteList = noteList, removeNote = { noteViewModel.removeNote(it) })}
 
         composable(Screen.AddNoteScreen.name){
-
-
-
             AddNoteScreen(navController = navController, addNote = { noteViewModel.addNote(it) })
         }
 
