@@ -1,5 +1,6 @@
 package com.example.keepnotes.screen
 
+import android.graphics.Color
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Note
 import android.widget.Toast
@@ -34,6 +35,7 @@ import com.example.keepnotes.navigation.Screen
 import com.example.keepnotes.utility.dateFormat
 import com.example.keepnotes.viewModel.NoteViewModel
 import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -45,42 +47,44 @@ fun MainScreen(
 ) {
     val context = LocalContext.current
 
-    Scaffold(
 
-        topBar = {
-            TopAppBar(
-                backgroundColor = MaterialTheme.colors.secondaryVariant,
-                elevation = 8.dp,
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "Keep Notes",
-                        style = MaterialTheme.typography.h1,
-                        color = MaterialTheme.colors.primary
+        Scaffold(
+            backgroundColor = MaterialTheme.colors.primaryVariant,
+            topBar = {
+                TopAppBar(
+                    backgroundColor = MaterialTheme.colors.secondaryVariant,
+                    elevation = 8.dp,
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Keep Notes",
+                            style = MaterialTheme.typography.h1,
+                            color = MaterialTheme.colors.primary
+                        )
+                    }
+                } },
+
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = {
+                        navController.navigate(route = Screen.AddNoteScreen.name) },
+                    backgroundColor = MaterialTheme.colors.secondary,
+                    modifier = Modifier.padding(end = 20.dp, bottom = 20.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add Button",
+                        tint = MaterialTheme.colors.primaryVariant,
+                        modifier = Modifier.size(30.dp)
                     )
-                }
-            } },
+                } },
 
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate(route = Screen.AddNoteScreen.name)
-                    Toast.makeText(context, "Create Note", Toast.LENGTH_SHORT).show() },
-                backgroundColor = MaterialTheme.colors.secondary
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add Button",
-                    tint = MaterialTheme.colors.primaryVariant,
-                    modifier = Modifier.size(30.dp)
-                )
-            } },
+            floatingActionButtonPosition = FabPosition.End)
+        {
+            MainContent(notes = noteList, onRemoved = removeNote)
+        }
 
-        floatingActionButtonPosition = FabPosition.Center)
-    {
-        MainContent(notes = noteList, onRemoved = removeNote)
-    }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -104,11 +108,11 @@ fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit) {
     val context = LocalContext.current
 
     Card(
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = MaterialTheme.colors.onSurface,
         contentColor = MaterialTheme.colors.primary,
         shape = RoundedCornerShape(CornerSize(8.dp)),
         modifier = Modifier
-            .padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 10.dp)
+            .padding(start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp)
             .fillMaxWidth()
             .wrapContentHeight()) {
 
@@ -133,7 +137,9 @@ fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit) {
                             .size(20.dp)
                             .clickable {
                                 onRemoved(note)
-                                Toast.makeText(context, "Remove", Toast.LENGTH_SHORT).show()
+                                Toast
+                                    .makeText(context, "Remove", Toast.LENGTH_SHORT)
+                                    .show()
                             }
                     )
                 }
