@@ -15,8 +15,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.keepnotes.navigation.ScreenNavigation
 import com.example.keepnotes.screen.MainScreen
 import com.example.keepnotes.ui.theme.KeepNotesTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 @RequiresApi(Build.VERSION_CODES.O)
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
