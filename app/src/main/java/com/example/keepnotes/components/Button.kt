@@ -20,7 +20,7 @@ fun SaveButton(
         onClick = onClick,
         shape = CircleShape,
         enabled = enabled,
-        border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+        border = BorderStroke(1.dp, MaterialTheme.colors.background),
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.secondary),
         modifier = Modifier.width(100.dp)
     ) {
@@ -45,7 +45,7 @@ fun DiscardButton(
         shape = CircleShape,
         enabled = enabled,
         border = BorderStroke(1.dp, MaterialTheme.colors.secondary),
-        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.background),
+        colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primaryVariant),
         modifier = Modifier.width(100.dp)
     ) {
         Text(
