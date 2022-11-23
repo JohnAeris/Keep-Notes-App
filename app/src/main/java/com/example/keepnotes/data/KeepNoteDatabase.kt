@@ -13,7 +13,7 @@ import com.example.keepnotes.utility.DateConverter
 import java.io.ByteArrayOutputStream
 
 @RequiresApi(Build.VERSION_CODES.O)
-@Database(entities = [NoteData::class], version = 1, exportSchema = false)
+@Database(entities = [NoteData::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class)
 abstract class KeepNoteDatabase: RoomDatabase() {
 
