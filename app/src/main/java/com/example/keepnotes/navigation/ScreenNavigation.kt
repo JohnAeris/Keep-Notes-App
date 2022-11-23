@@ -11,7 +11,6 @@ import com.example.keepnotes.screen.MainScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.screen.UpdateNoteScreen
 import com.example.keepnotes.viewModel.NoteViewModel
 
