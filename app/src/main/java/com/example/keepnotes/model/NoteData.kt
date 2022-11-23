@@ -19,10 +19,10 @@ data class NoteData (
     val id: String = UUID.randomUUID().toString(),
 
     @ColumnInfo(name = "noteTitle")
-    val title: String,
+    var title: String,
 
     @ColumnInfo(name = "noteDescription")
-    val description: String,
+    var description: String,
 
     @ColumnInfo(name = "noteDate")
     val date: Date = Date.from(Instant.now())
