@@ -11,6 +11,7 @@ import com.example.keepnotes.screen.MainScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
+import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.screen.UpdateNoteScreen
 import com.example.keepnotes.viewModel.NoteViewModel
 
@@ -36,7 +37,6 @@ fun ScreenNavigation(noteViewModel: NoteViewModel = viewModel()) {
                     noteList = noteList,
                     navController = navController,
                     updateNote = { noteViewModel.updateNote(it) },
-                    /*getNoteId = { noteViewModel.getNoteById(it.id) },*/
                     NoteId = backStackEntry.arguments?.getString("noteId")
                 )
 
