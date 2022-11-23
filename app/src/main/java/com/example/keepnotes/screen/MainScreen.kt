@@ -16,6 +16,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
@@ -28,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.room.TypeConverter
 import com.example.keepnotes.data.NoteDummyDataSource
 import com.example.keepnotes.model.NoteData
@@ -43,58 +45,57 @@ import kotlin.random.Random
 fun MainScreen(
     navController: NavController,
     noteList: List<NoteData>,
-    removeNote: (NoteData) -> Unit
+    removeNote: (NoteData) -> Unit,
 ) {
     val context = LocalContext.current
 
-
-        Scaffold(
-            backgroundColor = MaterialTheme.colors.primaryVariant,
-            topBar = {
-                TopAppBar(
-                    backgroundColor = MaterialTheme.colors.secondaryVariant,
-                    elevation = 8.dp,
-                    modifier = Modifier.padding(5.dp)
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(
-                            text = "Keep Notes",
-                            style = MaterialTheme.typography.h1,
-                            color = MaterialTheme.colors.primary
-                        )
-                    }
-                } },
-
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = {
-                        navController.navigate(route = Screen.AddNoteScreen.name) },
-                    backgroundColor = MaterialTheme.colors.secondary,
-                    modifier = Modifier.padding(end = 20.dp, bottom = 20.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Add Button",
-                        tint = MaterialTheme.colors.primaryVariant,
-                        modifier = Modifier.size(30.dp)
+    Scaffold(
+        backgroundColor = MaterialTheme.colors.primaryVariant,
+        topBar = {
+            TopAppBar(
+                backgroundColor = MaterialTheme.colors.secondaryVariant,
+                elevation = 8.dp,
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Keep Notes",
+                        style = MaterialTheme.typography.h1,
+                        color = MaterialTheme.colors.primary
                     )
-                } },
+                }
+            } },
 
-            floatingActionButtonPosition = FabPosition.End)
-        {
-            MainContent(notes = noteList, onRemoved = removeNote)
-        }
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navController.navigate(route = Screen.AddNoteScreen.name) },
+                backgroundColor = MaterialTheme.colors.secondary,
+                modifier = Modifier.padding(end = 20.dp, bottom = 20.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Button",
+                    tint = MaterialTheme.colors.primaryVariant,
+                    modifier = Modifier.size(30.dp)
+                )
+            } },
+
+        floatingActionButtonPosition = FabPosition.End)
+    {
+        MainContent(notes = noteList, onRemoved = removeNote, navController = navController)
+    }
 
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainContent(notes: List<NoteData>, onRemoved: (NoteData) -> Unit) {
+fun MainContent(notes: List<NoteData>, onRemoved: (NoteData) -> Unit, navController: NavController) {
 
     LazyColumn(modifier = Modifier.background(color = MaterialTheme.colors.primaryVariant)) {
 
         items(notes) { note ->
-            NoteCard(note = note, onRemoved = { onRemoved(note) })
+            NoteCard(note = note, onRemoved = { onRemoved(note) }, navController = navController)
         }
 
     }
@@ -103,7 +104,7 @@ fun MainContent(notes: List<NoteData>, onRemoved: (NoteData) -> Unit) {
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit) {
+fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit, navController: NavController) {
 
     val context = LocalContext.current
 
@@ -129,20 +130,33 @@ fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit) {
                     modifier = Modifier.weight(1f)
                 )
 
-                Column(horizontalAlignment = Alignment.End) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Button",
-                        modifier = Modifier
-                            .size(20.dp)
-                            .clickable {
-                                onRemoved(note)
-                                Toast
-                                    .makeText(context, "Remove", Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-                    )
-                }
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = "Update Button",
+                    modifier = Modifier
+                        .size(20.dp)
+                        .clickable {
+                            navController.navigate(route = Screen.UpdateNoteScreen.name + "/${note.id}")
+                        }
+                )
+                
+                Spacer(modifier = Modifier.width(10.dp))
+
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete Button",
+                    modifier = Modifier
+                        .size(20.dp)
+                        .clickable {
+                            onRemoved(note)
+                            Toast
+                                .makeText(context, "Remove", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                )
+
+
+
             }
 
             Column(horizontalAlignment = Alignment.Start) {
