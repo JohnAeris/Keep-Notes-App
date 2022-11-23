@@ -1,21 +1,16 @@
 package com.example.keepnotes.viewModel
 
 import android.os.Build
-import android.provider.ContactsContract.CommonDataKinds.Note
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.keepnotes.data.NoteDummyDataSource
 import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.repository.KeepNoteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject

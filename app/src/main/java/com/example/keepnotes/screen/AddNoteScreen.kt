@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import com.example.keepnotes.components.DiscardButton
 import com.example.keepnotes.components.SaveButton
 import com.example.keepnotes.components.InputText
-import com.example.keepnotes.data.NoteDummyDataSource
 import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.navigation.Screen
 
@@ -86,7 +85,7 @@ fun AddNoteScreen(
                 }
             }
             
-            Row() {
+            Row {
                 DiscardButton(text = "Discard", onClick = {
 
                     if (title.isNotEmpty() && description.isNotEmpty()) {

@@ -1,8 +1,6 @@
 package com.example.keepnotes.screen
 
-import android.graphics.Color
 import android.os.Build
-import android.provider.ContactsContract.CommonDataKinds.Note
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -18,26 +16,15 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import androidx.room.TypeConverter
-import com.example.keepnotes.data.NoteDummyDataSource
 import com.example.keepnotes.model.NoteData
 import com.example.keepnotes.navigation.Screen
 import com.example.keepnotes.utility.dateFormat
-import com.example.keepnotes.viewModel.NoteViewModel
-import java.time.format.DateTimeFormatter
-import kotlin.random.Random
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -121,7 +108,7 @@ fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit, navController: NavCo
             verticalArrangement = Arrangement.spacedBy(10.dp),
             modifier = Modifier.padding(10.dp)) {
 
-            Row() {
+            Row {
                 Text(
                     text = note.title,
                     style = MaterialTheme.typography.h2,
@@ -168,7 +155,7 @@ fun NoteCard(note: NoteData, onRemoved: (NoteData) -> Unit, navController: NavCo
                 )
             }
             
-            Row() {
+            Row {
                 Spacer(modifier = Modifier.weight(1f))
 
                 Text(

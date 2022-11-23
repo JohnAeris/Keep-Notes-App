@@ -33,8 +33,8 @@ fun UpdateNoteScreen(
     }
 
     val note = fetchNote.first()
-    var noteTitle = note.title
-    var noteDescription = note.description
+    val noteTitle = note.title
+    val noteDescription = note.description
 
     var newTitle = ""
     var newDescription = ""
@@ -99,7 +99,7 @@ fun UpdateNoteScreen(
                 }
             }
 
-            Row() {
+            Row {
                 DiscardButton(text = "Cancel", onClick = {
                     navController.navigate(route = Screen.MainScreen.name)
                 })

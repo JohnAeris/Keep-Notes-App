@@ -1,6 +1,5 @@
 package com.example.keepnotes.data
 
-import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert

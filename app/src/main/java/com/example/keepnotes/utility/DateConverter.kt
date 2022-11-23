@@ -1,7 +1,6 @@
 package com.example.keepnotes.utility
 
 import androidx.room.TypeConverter
-import java.sql.Timestamp
 import java.util.Date
 
 class DateConverter {
@@ -12,7 +11,7 @@ class DateConverter {
     }
 
     @TypeConverter
-    fun dateFromTimeStamp(timestamp: Long): Date? {
+    fun dateFromTimeStamp(timestamp: Long): Date {
         return Date(timestamp)
     }
 

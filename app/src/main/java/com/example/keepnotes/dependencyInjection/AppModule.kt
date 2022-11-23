@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.room.Room
-import androidx.room.TypeConverters
 import com.example.keepnotes.data.KeepNoteDatabase
 import com.example.keepnotes.data.NoteDatabaseDao
 import dagger.Module

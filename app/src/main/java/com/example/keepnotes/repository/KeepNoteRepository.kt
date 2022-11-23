@@ -1,6 +1,5 @@
 package com.example.keepnotes.repository
 
-import android.provider.ContactsContract.CommonDataKinds.Note
 import com.example.keepnotes.data.NoteDatabaseDao
 import com.example.keepnotes.model.NoteData
 import kotlinx.coroutines.Dispatchers
