@@ -16,7 +16,7 @@ import java.util.*
 @Entity(tableName = "KeepNotesTable")
 data class NoteData (
     @PrimaryKey
-    val id: UUID = UUID.randomUUID(),
+    val id: String = UUID.randomUUID().toString(),
 
     @ColumnInfo(name = "noteTitle")
     val title: String,
