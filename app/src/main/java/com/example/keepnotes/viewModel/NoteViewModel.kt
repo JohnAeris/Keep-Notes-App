@@ -1,6 +1,7 @@
 package com.example.keepnotes.viewModel
 
 import android.os.Build
+import android.provider.ContactsContract.CommonDataKinds.Note
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.MutableState
