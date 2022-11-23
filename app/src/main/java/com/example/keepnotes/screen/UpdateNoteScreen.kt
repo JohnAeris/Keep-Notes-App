@@ -32,28 +32,19 @@ fun UpdateNoteScreen(
         note.id == NoteId
     }
 
-    val noteTitle = fetchNote.firstOrNull()?.title
-    val noteDescription = fetchNote.firstOrNull()?.description
+    val note = fetchNote.first()
+    var noteTitle = note.title
+    var noteDescription = note.description
 
-
-    var title1 = if (noteTitle?.isEmpty() == true) {
-        "Empty"
-    } else {
-        noteTitle.toString()
-    }
-
-    var description1 = if (noteDescription?.isEmpty() == true) {
-        "Empty"
-    } else {
-        noteDescription.toString()
-    }
+    var newTitle = ""
+    var newDescription = ""
 
     var title by remember {
-        mutableStateOf(title1)
+        mutableStateOf(noteTitle + newTitle)
     }
 
     var description by remember {
-        mutableStateOf(description1)
+        mutableStateOf(noteDescription + newDescription)
     }
 
     val context = LocalContext.current
@@ -85,7 +76,8 @@ fun UpdateNoteScreen(
                         text = title,
                         label = "",
                         onTextChange = {
-                            title = it
+                            newTitle = it
+                            title = newTitle
                         }
                     )
 
@@ -100,7 +92,8 @@ fun UpdateNoteScreen(
                         maxLine = 1000,
                         imeAction = ImeAction.None,
                         onTextChange = {
-                            description = it
+                            newDescription = it
+                            description = newDescription
                         }
                     )
                 }
@@ -115,7 +108,8 @@ fun UpdateNoteScreen(
 
                 SaveButton(text = "Update", onClick = {
                     if (title.isNotEmpty() && description.isNotEmpty()) {
-                        updateNote(NoteData(title = title, description = description))
+                        updateNote(NoteData(id = note.id, title = title, description = description))
+                        navController.navigate(route = Screen.MainScreen.name)
                         Toast.makeText(context, "Successfully Updated", Toast.LENGTH_SHORT).show()
                     } else {
                         Toast.makeText(context, "Fill the Title and Description", Toast.LENGTH_SHORT).show()
